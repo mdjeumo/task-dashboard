@@ -10,6 +10,7 @@ function App() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
   const [input, setInput] = useState("");
+  const [filter, setFilter] = useState("all");
 
   const addTask = () => {
     if (!input.trim()) return;
@@ -51,9 +52,19 @@ function App() {
           Add
         </button>
       </div>
-
+      <div style={{ marginTop: "10px"}}>
+        <button onClick={() => setFilter("all")}>all</button>
+        <button onClick={() => setFilter("active")}>Active</button>
+        <button onClick={() => setFilter("completed")}>Completed</button>
+      </div>
       <ul>
-        {tasks.map(task => (
+        {tasks
+          .filter(task => {
+            if (filter === "active") return !task.completed;
+            if (filter === "completed") return task.completed;
+            return true;
+          })
+          .map(task => (
           <li key={task.id}>
             <span
               onClick={() => toggleTask(task.id)}
