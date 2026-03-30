@@ -56,6 +56,7 @@ function App() {
         <button onClick={() => setFilter("all")}>all</button>
         <button onClick={() => setFilter("active")}>Active</button>
         <button onClick={() => setFilter("completed")}>Completed</button>
+        <button onClick={() => setTasks(tasks.filter(task => !task.completed))}>Clear Completed</button>
       </div>
       <ul>
         {tasks
